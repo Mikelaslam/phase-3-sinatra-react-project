@@ -1,5 +1,8 @@
 require_relative "./config/environment"
 
+use CommentsController
+use UsersController
+use QuestionsController
 # Allow CORS (Cross-Origin Resource Sharing) requests
 use Rack::Cors do
   allow do
