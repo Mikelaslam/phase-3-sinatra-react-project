@@ -1,10 +1,26 @@
+class UsersController < ApplicationController
 
-if(name_.present? && user_name.present? && phone_.present? && email_.present?)
-                check_email_exists = User.where(email: email_).count() #Integer 2,3,4,5
+    # Routings
+
+        get "/users" do
+           users = User.all
+           users.to_json
+        end
+
+        post "/users" do
+            name_ = params[:name]
+            user_name = params[:username]
+            email_ = params[:email]
+            phone_ = params[:phone]
+            
+
+            if(name_.present? && user_name.present? && phone_.present? && email_.present?)
+
+                check_email_exists = User.where(email: email_).count() 
                  puts("XXXXXXXXXXXXXXXXX ", check_email_exists)
 
                  if check_email_exists < 1
-                    user = User.create(username: user_name, email: email_, phone: phone_)
+                    user = User.create(name: name_, username: user_name, email: email_, phone: phone_)
                     if user
                         message = {:succcess => "User created successfully!!"}
                         message.to_json
@@ -24,18 +40,19 @@ if(name_.present? && user_name.present? && phone_.present? && email_.present?)
         end
 
         #delete user
-         delete "/comments/:id" do
-        count_comments = Comment.where(id: params[:id]).count() #Integer 2,3,4,5
-        if count_comments>0
-            comment = Comment.find(params[:id])
-            comment.destroy
-            message = {:succcess => "Comment deleted successfully!!"}
+         delete "/users/:id" do
+        count_users = User.where(id: params[:id]).count() 
+        if count_users>0
+            user = User.find(params[:id])
+            user.destroy
+            message = {:succcess => "User deleted successfully!!"}
             message.to_json
 
         else
-            message = {:error => "Comment does not exist!"}
+            message = {:error => "User does not exist!"}
             message.to_json
         end
-    end
+
 
     end
+end
