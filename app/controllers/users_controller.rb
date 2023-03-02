@@ -22,4 +22,20 @@ if(name_.present? && user_name.present? && phone_.present? && email_.present?)
             end
 
         end
+
+        #delete user
+         delete "/comments/:id" do
+        count_comments = Comment.where(id: params[:id]).count() #Integer 2,3,4,5
+        if count_comments>0
+            comment = Comment.find(params[:id])
+            comment.destroy
+            message = {:succcess => "Comment deleted successfully!!"}
+            message.to_json
+
+        else
+            message = {:error => "Comment does not exist!"}
+            message.to_json
+        end
+    end
+
     end
