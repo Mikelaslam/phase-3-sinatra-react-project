@@ -1,6 +1,8 @@
   class CommentsController < ApplicationController
     #routings
     get "/comments" do
-     "Comments"
+     comments = Comments.all
+     comments.to_json
 end
+
 end
