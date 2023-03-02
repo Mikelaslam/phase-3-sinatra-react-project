@@ -41,6 +41,25 @@ post "/comments" do
             message.to_json
         end
     end
-    
+   # patch comments
+patch "/comments/:id" do
+  comment = Comment.find(params[:id])
+  if comment.present?
+    comment.comment = params[:comment] if params[:comment].present?
+    comment.question_id = params[:question] if params[:question].present?
+    comment.user_id = params[:user] if params[:user].present?
+    if comment.save
+      message = { success: "Comment updated successfully!" }
+      message.to_json
+    else
+      message = { error: "Error updating comment!" }
+      message.to_json
+    end
+  else
+    message = { error: "Comment not found!" }
+    message.to_json
+  end
+end
+ 
 
 end
