@@ -4,6 +4,7 @@
      comments = Comments.all
      comments.to_json
 end
+#post comments
 post "/comments" do
         comment = params[:comment]
         post = params[:question]
@@ -23,5 +24,23 @@ post "/comments" do
             message.to_json
         end
     end
+
+
+
+    #delete comment
+    delete "/comments/:id" do
+        count_comments = Comment.where(id: params[:id]).count() 
+        if count_comments>0
+            comment = Comment.find(params[:id])
+            comment.destroy
+            message = {:succcess => "Comment deleted successfully!!"}
+            message.to_json
+
+        else
+            message = {:error => "Comment does not exist!"}
+            message.to_json
+        end
+    end
+    
 
 end
