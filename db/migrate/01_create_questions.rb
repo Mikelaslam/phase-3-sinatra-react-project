@@ -3,7 +3,8 @@ class CreateQuestions < ActiveRecord::Migration[6.1]
         t.string :title
         t.string :category
         t.text :description
-        t.boolean :archive, default => false
+        t.boolean :archive, :default => false
         t.references :user, foreign_key: true
+    end
 
 end
