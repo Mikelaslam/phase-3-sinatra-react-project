@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     email = params[:email]
 
     if name.present? && username.present? && phone.present?
-      check_quest
+     
       check_email_exists = User.where(email: email).count()
 
       if check_email_exists < 1

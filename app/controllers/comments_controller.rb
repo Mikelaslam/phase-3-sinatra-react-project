@@ -1,29 +1,34 @@
   class CommentsController < ApplicationController
     #routings
     get "/comments" do
-     comments = Comments.all
-     comments.to_json
+     comment = Comment.all
+     comment.to_json
 end
+
 #post comments
 post "/comments" do
-        comment = params[:comment]
-        post = params[:question]
-        user = params[:user]
-
-        if(comment.present? && post.present? && user.present?)
-            comment = Comment.create(comment: comment, question_id: post, user_id: user)
-            if comment
-                message = {:succcess => "Comment created successfully!!"}
-                message.to_json
-            else
-                message = {:error => "Error saving comment!"}
-                message.to_json
-            end
-        else
-            message = {:error => "All fields should be field!"}
-            message.to_json
-        end
+  title = params[:title]
+  category = params[:category]
+  content = params[:content]
+  user_id = params[:user_id]
+  question_id = params[:question_id]
+  
+  if title.present? && category.present? && content.present? && user_id.present? && question_id.present?
+    comment = Comment.create(title: title, category: category, content: content, user_id: user_id, question_id: question_id)
+    
+    if comment
+      message = { success: "Comment created successfully!" }
+      message.to_json
+    else
+      message = { error: "Error saving comment!" }
+      message.to_json
     end
+  else
+    message = { error: "All fields should be filled!" }
+    message.to_json
+  end
+end
+
 
 
 
@@ -41,7 +46,27 @@ post "/comments" do
             message.to_json
         end
     end
-   # patch comments
+
+   # update# patch comments
+patch "/comments/:id" do
+  comment = Comment.find(params[:id])
+  if comment.present?
+    comment.comment = params[:comment] if params[:comment].present?
+    comment.question_id = params[:question] if params[:question].present?
+    comment.user_id = params[:user] if params[:user].present?
+    if comment.save
+      message = { success: "Comment updated successfully!" }
+      message.to_json
+    else
+      message = { error: "Error updating comment!" }
+      message.to_json
+    end
+  else
+    message = { error: "Comment not found!" }
+    message.to_json
+  end
+end
+
 patch "/comments/:id" do
   comment = Comment.find(params[:id])
   if comment.present?

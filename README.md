@@ -1,9 +1,8 @@
-# Phase 3 Project Guidelines
+# Phase 3 Sinatra-React Project
 
-## Learning Goals
+## Introduction
 
-- Build a web basic API with Sinatra and Active Record to support a React
-  frontend
+- This Project is a **simple Sinatra API backend application** whereby users can post questions in a social platform and other users can comment on the questions. The questions andnd comments can be Created, Read, Updated and Deleted. The backend uses
 
 ## Introduction
 

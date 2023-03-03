@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
     #routings
     get "/questions" do
       questions = Question.all
-      questions.to_json
+      questions.to_json(include: [:user, :comments])
     end
 
     post "/questions" do
@@ -31,7 +31,8 @@ end
   check_question_existence = Question.exists?(id: params[:id]) #true/false
   if check_question_existence
     title = params[:title]
-    content = params[:content]
+    category = params[:category]
+    description = params[:description]
     user = params[:user]
     if (title.present? && category.present? && description.present? && user.present?)
       # updating
